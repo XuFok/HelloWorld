@@ -1,0 +1,72 @@
+package W_12_24;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class NO_14 {
+	static List <jh> a=new ArrayList<>();
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Scanner sr = new Scanner(System.in);
+
+		int m = sr.nextInt();
+		for (int j = 0; j < m; j++) {
+		     a.add(new jh(sr.nextInt(),sr.nextInt()));
+
+		}
+		sort(0, m - 1);
+		
+//		for(jh c:a) {
+//			System.out.println(c.x+"  "+c.y);
+//		}
+		int sum = 0;
+		int n = 0;
+		for (int i = 0; i < m; i++) {
+			if (a.get(i).x > n) {
+				n = a.get(i).y;
+				sum++;
+			}
+
+		}
+		System.out.println(sum);
+	}
+	/*
+	 * 10 3 6 1 4 5 7 2 5 5 9 3 8 8 11 6 10 8 12 12 14
+	 * 
+	 */
+
+	static void sort(int lo, int he) {
+		if (lo > he)
+			return;
+		int i = lo;
+		int j = he;
+		jh index = a.get(i);
+		while (i < j) {
+			while (i < j && a.get(j).y >= index.y)
+				j--;
+			if (i < j)
+				a.set(i++, a.get(j));
+			while (i < j && a.get(j).y < index.y)
+				i++;
+			if (i < j)
+				a.set(j--, a.get(i));
+
+		}
+		a.set(i, index);
+		sort(lo, i - 1);
+		sort(i + 1, he);
+	}
+}
+
+class jh {
+	int x;
+	int y;
+
+	jh(int x,int y) {
+		this.x=x;
+		this.y=y;
+	}
+}
