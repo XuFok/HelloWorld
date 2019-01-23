@@ -1,0 +1,62 @@
+package _1_17;
+
+import java.util.Scanner;
+
+public class _23 {
+	static int N, M;
+	static int e[][], dis[][];
+	static boolean zt[];
+	static int min;
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Scanner sr = new Scanner(System.in);
+		N = sr.nextInt();
+		M = sr.nextInt();
+		e = new int[N + 1][N + 1];
+		dis = new int[N + 1][N + 1];
+		zt = new boolean[N + 1];
+		for (int i = 1; i <= M; i++) {
+			int x = sr.nextInt();
+			int y = sr.nextInt();
+			e[x][y] = sr.nextInt();
+		}
+		int he = sr.nextInt();
+		for (int i = 1; i <= N; i++)
+			for (int j = 1; j <= N; j++)
+//        		if(e[i][j]==0)
+//        			dis[i][j]=999;
+//        		else
+				dis[i][j] = e[i][j];
+		for (int i = 1; i <= N; i++) {
+			if (i == he) {
+				System.out.println(0);
+				continue;
+			}
+
+			min = 9999;
+			bfs(i, 0, he);
+			System.out.println(min);
+		}
+	}
+
+	static void bfs(int n, int sum, int index) {
+		if (n == index) {
+			if (sum < min) {
+				min = sum;
+				return;
+			}
+		}
+
+		for (int i = 1; i <= N; i++) {
+			if (dis[index][i] != 0 && zt[i] == false) {
+				zt[i] = true;
+				bfs(n, sum + dis[index][i], i);
+				zt[i] = false;
+			}
+		}
+
+	}
+
+}
