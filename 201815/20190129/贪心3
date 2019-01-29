@@ -1,0 +1,47 @@
+package _1_17;
+
+import java.util.Scanner;
+
+public class tx_3 {
+
+		public static void main(String[] args) {
+			// TODO Auto-generated method stub
+
+			Scanner sr = new Scanner(System.in);
+
+			int n = sr.nextInt();
+			int a[] = new int[n+1];
+			int opt[] = new int[n + 1];
+			for (int i = 1; i <= n; i++)
+				a[i] = sr.nextInt();
+			sort(a, 1, a.length - 1);
+			opt[2]=a[2];
+			for (int i = 3; i <= n; i++) {
+				opt[i] = Math.min(opt[i - 1] + a[1] + a[i],  opt[i - 2] + a[1] + a[i] + 2 * a[2]);
+			}
+			System.out.println(opt[n]);
+
+		}
+
+		static void sort(int a[], int lo, int hi) {
+
+			if (lo > hi)
+				return;
+			int i = lo;
+			int j = hi;
+			int index = a[i];
+			while (i < j) {
+				while (i < j && index <= a[j])
+					j--;
+				if (i < j)
+					a[i++] = a[j];
+				while (i < j && a[i] < a[j])
+					i++;
+				if (i < j)
+					a[j--] = a[i];
+			}
+			a[i] = index;
+			sort(a, lo, i - 1);
+			sort(a, i + 1, hi);
+		}
+	}
