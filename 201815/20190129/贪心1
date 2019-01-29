@@ -1,0 +1,69 @@
+package _1_17;
+
+import java.util.Scanner;
+
+public class tx_1 {
+	static int n;
+	static int a[], b[];
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sr = new Scanner(System.in);
+		while (true) {
+			n = sr.nextInt();
+			a = new int[n];
+			b = new int[n];
+
+			for (int i = 0; i < n; i++)
+				a[i] = sr.nextInt();
+			for (int i = 0; i < n; i++)
+				b[i] = sr.nextInt();
+		
+			sort(a, 0, n - 1);
+			sort(b, 0, n - 1);
+			int ans = 0;
+			int w = 0;
+			for (int i = n - 1; i >= 0; i--)
+				if (b[i] > a[n - 1])
+					ans -= 200;
+				else {
+					w = i;
+					break;
+				}
+			int j = n - 1;
+			while (w > -1) {
+				while (w>-1&&a[j] > b[w]) {
+					ans += 200;
+					j--;
+					w--;
+				}
+				w--;
+			}
+			System.out.println(ans);
+
+		}
+	}
+
+	static void sort(int d[], int lo, int he) {
+		if (lo > he)
+			return;
+		int i = lo;
+		int j = he;
+		int index = d[i];
+		while (i < j) {
+			while (i < j && d[j] >= index)
+				j--;
+			if (i < j)
+				d[i++] = d[j];
+			while (i < j && d[i] < index)
+				i++;
+			if (i < j)
+				d[j--] = d[i];
+
+		}
+		d[i] = index;
+		sort(d, lo, i - 1);
+		sort(d, i + 1, he);
+	}
+
+}
